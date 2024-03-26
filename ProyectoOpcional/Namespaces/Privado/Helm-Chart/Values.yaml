@@ -1,0 +1,29 @@
+# Valores por defecto para el despliegue de Apache
+replicaCount: 1
+
+image:
+  repository: apache
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+# Configuración del entorno
+env:
+  - name: APACHE_SERVER_NAME
+    value: "My Apache Server"
+  - name: APACHE_SERVER_ALIAS
+    value: "apache.example.com"
+  - name: APACHE_DOCUMENT_ROOT
+    value: "/var/www/html"
+
+# Recursos y límites
+resources:
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+  requests:
+    cpu: "250m"
+    memory: "128Mi"

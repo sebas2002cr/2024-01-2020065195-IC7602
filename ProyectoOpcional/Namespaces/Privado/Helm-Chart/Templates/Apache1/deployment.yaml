@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache1
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: apache1
+  template:
+    metadata:
+      labels:
+        app: apache1
+    spec:
+      containers:
+      - name: apache1
+        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        ports:
+        - containerPort: {{ .Values.service.port }}
+        env:
+        - name: MESSAGE
+          value: "{{ .Values.message }}"

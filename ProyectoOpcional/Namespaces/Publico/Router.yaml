@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: router
+  namespace: publico
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: router
+  template:
+    metadata:
+      labels:
+        app: router
+    spec:
+      containers:
+        - name: router
+          image: ubuntu:latest # Aquí puedes utilizar la imagen de Ubuntu o la imagen que desees
+          command: ["tail", "-f", "/dev/null"] # Mantenemos el contenedor en ejecución
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: router
+  namespace: publico
+spec:
+  ports:
+    - name: tcp5601
+      protocol: TCP
+      port: 5601
+      targetPort: 5601
+    - name: udp5601
+      protocol: UDP
+      port: 5601
+      targetPort: 5601
+    - name: tcp8080
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+    - name: tcp8081
+      protocol: TCP
+      port: 8081
+      targetPort: 8081
+    - name: tcp80
+      protocol: TCP
+      port: 80
+      targetPort: 80
+  type: NodePort

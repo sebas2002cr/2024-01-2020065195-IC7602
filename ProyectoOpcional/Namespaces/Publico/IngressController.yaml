@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-controller
+  namespace: publico
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /Apache1
+            pathType: Prefix
+            backend:
+              service:
+                name: apache1
+                port:
+                  number: 80
+          - path: /Apache2
+            pathType: Prefix
+            backend:
+              service:
+                name: apache2
+                port:
+                  number: 80
